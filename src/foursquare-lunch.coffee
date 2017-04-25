@@ -20,7 +20,7 @@ module.exports = (robot) ->
     clientSecret: process.env.FOURSQUARE_CLIENT_SECRET
     accessToken: process.env.FOURSQUARE_ACCESS_TOKEN
     redirectUrl: "localhost"
-  config.version = '20150722'
+  config.version = '20170101'
 
   foursquare = require('node-foursquare')(config);
 
