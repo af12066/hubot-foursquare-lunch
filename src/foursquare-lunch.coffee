@@ -24,15 +24,24 @@ module.exports = (robot) ->
 
   foursquare = require('node-foursquare')(config);
 
-  robot.respond /lunch$/i, (msg) ->
-    suggestLunchSpot msg
+  robot.respond /(lunch|ランチ)$/i, (msg) ->
+    suggestSpot msg, 'lunch'
 
-  suggestLunchSpot = (msg) ->
+  robot.respond /(dinner|ディナー)$/i, (msg) ->
+    suggestSpot msg, 'dinner'
+
+  robot.respond /(ramen|ラーメン)$/i, (msg) ->
+    suggestSpot msg, 'ramen'
+
+  robot.respond /居酒屋$/i, (msg) ->
+    suggestSpot msg, 'sake bar'
+
+  suggestSpot = (msg, q) ->
     params =
       price: '1,2,3',
       openNow: true,
       sortByDistance: true
-      query: 'lunch'
+      query: q
       radius: 1600
 
     # Call Foursquare API
