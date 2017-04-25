@@ -15,12 +15,18 @@
 #   stephenyeargin
 
 module.exports = (robot) ->
-  config = secrets:
-    clientId: process.env.FOURSQUARE_CLIENT_ID
-    clientSecret: process.env.FOURSQUARE_CLIENT_SECRET
-    accessToken: process.env.FOURSQUARE_ACCESS_TOKEN
-    redirectUrl: "localhost"
-  config.version = '20170101'
+  config = {
+    secrets: {
+      clientId: process.env.FOURSQUARE_CLIENT_ID
+      clientSecret: process.env.FOURSQUARE_CLIENT_SECRET
+      accessToken: process.env.FOURSQUARE_ACCESS_TOKEN
+      redirectUrl: "localhost"
+    }
+    foursquare: {
+      version: '20170101'
+      mode: 'foursquare'
+    }
+  }
 
   foursquare = require('node-foursquare')(config);
 
@@ -49,4 +55,4 @@ module.exports = (robot) ->
       if error
         return msg.send error
       spot = msg.random response['groups'][0]['items']
-      msg.send spot.venue.name
+      msg.send "https://foursquare.com/v/#{spot.venue.id}"
